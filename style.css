@@ -13,8 +13,8 @@ body {
 }
 
 .container {
-  width: 60vw;
-  height: 60vw;
+  width: 30vw;
+  height: 30vw;
   display: flex;
   flex-wrap: wrap;
 }

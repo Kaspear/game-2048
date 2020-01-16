@@ -10,7 +10,7 @@ const cells = document.getElementsByClassName('wrapper');
 start = () => {
     addRandomNumber();
     document.onkeydown = checkKey;
-}
+};
 
 draw = () => {
     let i = 0;
@@ -34,12 +34,12 @@ draw = () => {
         }
     }
 
-}
+};
 
 addRandomNumber = () => {
     let index1 = Math.floor(Math.random() * 4);
     let index2 = Math.floor(Math.random() * 4);
-    let obj = { x: index1, y: index2 };
+    // let obj = {x: index1, y: index2};
     console.log(array_index);
 
     // if (array_index.includes(obj)) {
@@ -52,41 +52,50 @@ addRandomNumber = () => {
     // } else {
     //     array_index.push(obj);
     // }
-    let is_in = false;
-    for (let i = 0; i < array_index.length; i++) {
-        console.log(array_index[i].x)
-        if (array_index[i].x === obj.x && array_index[i].y === obj.y) {
-            is_in = true;
-        }
-    }
-    if (is_in) {
-
-
-    } else {
-        array_index.push(obj);
-    }
-    let number = Math.random(1);
+    //                               Druga wersja
+    // let is_in = false;
+    // for (let i = 0; i < array_index.length; i++) {
+    //     console.log(array_index[i].x)
+    //     if (array_index[i].x === obj.x && array_index[i].y === obj.y) {
+    //         is_in = true;
+    //     }
+    // }
+    // if (is_in) {
+    //
+    //
+    // } else {
+    //     array_index.push(obj);
+    // }
+    let number = Math.random();
     r = number > 0.5 ? 2 : 4;
-    board[index1][index2] = r;
+    if (board[index1][index2] !== 0) {
+        while (board[index1][index2]!==0) {
+            index1 = Math.floor(Math.random() * 4)
+            index2 = Math.floor(Math.random() * 4)
+            //obj = { x: index1, y: index2 };
+        }
+        board[index1][index2] = r;
+    } else {
+        board[index1][index2] = r;
+    }
+
+
     draw();
-}
+};
 
 checkKey = (e) => {
     e = e || window.event;
 
     if (e.keyCode == '38') {
         up()
-    }
-    else if (e.keyCode == '40') {
+    } else if (e.keyCode == '40') {
         // down arrow
-    }
-    else if (e.keyCode == '37') {
+    } else if (e.keyCode == '37') {
         // left arrow
-    }
-    else if (e.keyCode == '39') {
+    } else if (e.keyCode == '39') {
         // right arrow
     }
-}
+};
 up = () => {
     // for (let i = 1; i < 4; i++) {
     //     for (let j = 0; j < 4; j++) {
@@ -98,5 +107,5 @@ up = () => {
     // }
     addRandomNumber();
     // draw();
-}
+};
 window.onload = start;
