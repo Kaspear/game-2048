@@ -30,7 +30,7 @@ draw = () => {
                     cells[i].style.backgroundColor = 'yellow';
                 } else if (board[j][k] === 32) {
                     cells[i].style.backgroundColor = 'green';
-                } else if (board[j][k] === 8) {
+                } else if (board[j][k] === 64) {
                     cells[i].style.backgroundColor = 'yellowgreen';
                 }
 
@@ -85,6 +85,7 @@ checkKey = (e) => {
     } else if (e.keyCode == '39') {
         right();
     }
+    addRandomNumber();
 };
 up = () => {
     for (let i = 3; i >=1; i--) {
@@ -99,8 +100,6 @@ up = () => {
         }
     }
     draw();
-    addRandomNumber();
-
 };
 down = () => {
     for (let i = 0; i < 3; i++) {
@@ -110,13 +109,12 @@ down = () => {
                 if (board[i + 1][j] === board[i][j] || board[i + 1][j] === 0) {
                     board[i + 1][j] = board[i][j] + board[i + 1][j];
                     board[i][j] = 0;
+                    draw();
                 }
             }
         }
     }
     draw();
-    addRandomNumber();
-
 };
 
 left = () => {
@@ -132,8 +130,6 @@ left = () => {
         }
     }
     draw();
-    addRandomNumber();
-
 };
 
 right = () => {
@@ -149,7 +145,6 @@ right = () => {
         }
     }
     draw();
-    addRandomNumber();
 
 };
 
