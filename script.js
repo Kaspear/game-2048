@@ -26,7 +26,14 @@ draw = () => {
                     cells[i].style.backgroundColor = 'blue';
                 } else if (board[j][k] === 8) {
                     cells[i].style.backgroundColor = 'purple';
+                } else if (board[j][k] === 16) {
+                    cells[i].style.backgroundColor = 'yellow';
+                } else if (board[j][k] === 32) {
+                    cells[i].style.backgroundColor = 'green';
+                } else if (board[j][k] === 8) {
+                    cells[i].style.backgroundColor = 'yellowgreen';
                 }
+
                 cells[i].innerHTML = board[j][k];
             }
 
@@ -39,73 +46,111 @@ draw = () => {
 addRandomNumber = () => {
     let index1 = Math.floor(Math.random() * 4);
     let index2 = Math.floor(Math.random() * 4);
-    // let obj = {x: index1, y: index2};
-    console.log(array_index);
 
-    // if (array_index.includes(obj)) {
-    //     while (array_index.includes(obj)) {
-    //         index1 = Math.floor(Math.random() * 4)
-    //         index2 = Math.floor(Math.random() * 4)
-    //         obj = { x: index1, y: index2 };
-    //     }
-    //     array_index.push(obj);
-    // } else {
-    //     array_index.push(obj);
-    // }
-    //                               Druga wersja
-    // let is_in = false;
-    // for (let i = 0; i < array_index.length; i++) {
-    //     console.log(array_index[i].x)
-    //     if (array_index[i].x === obj.x && array_index[i].y === obj.y) {
-    //         is_in = true;
-    //     }
-    // }
-    // if (is_in) {
-    //
-    //
-    // } else {
-    //     array_index.push(obj);
-    // }
     let number = Math.random();
     r = number > 0.5 ? 2 : 4;
-    if (board[index1][index2] !== 0) {
-        while (board[index1][index2]!==0) {
-            index1 = Math.floor(Math.random() * 4)
-            index2 = Math.floor(Math.random() * 4)
-            //obj = { x: index1, y: index2 };
+    let count = 0;
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 4; j++) {
+            if (board[i][j] !== 0) {
+                count = count + 1;
+            }
         }
-        board[index1][index2] = r;
-    } else {
-        board[index1][index2] = r;
     }
-
-
-    draw();
+    if (count !== 16) {
+        if (board[index1][index2] !== 0) {
+            while (board[index1][index2] !== 0) {
+                index1 = Math.floor(Math.random() * 4)
+                index2 = Math.floor(Math.random() * 4)
+            }
+            board[index1][index2] = r;
+        } else {
+            board[index1][index2] = r;
+        }
+        draw();
+    } else {
+        return null;
+    }
 };
 
 checkKey = (e) => {
     e = e || window.event;
 
     if (e.keyCode == '38') {
-        up()
+        up();
     } else if (e.keyCode == '40') {
-        // down arrow
+        down();
     } else if (e.keyCode == '37') {
-        // left arrow
+        left();
     } else if (e.keyCode == '39') {
-        // right arrow
+        right();
     }
 };
 up = () => {
-    // for (let i = 1; i < 4; i++) {
-    //     for (let j = 0; j < 4; j++) {
-    //         if (board[i][j] != 0 && board[i - 1][j] == 0) {
-    //             board[i - 1][j] = board[i][j];
-    //             board[i][j] = 0;
-    //         }
-    //     }
-    // }
+    for (let i = 3; i >=1; i--) {
+        for (let j = 3; j >= 0; j--) {
+            if (board[i][j] !== 0) {
+                console.log(board);
+                if (board[i - 1][j] === board[i][j] || board[i - 1][j] === 0) {
+                    board[i - 1][j] = board[i][j] + board[i - 1][j];
+                    board[i][j] = 0;
+                }
+            }
+        }
+    }
+    draw();
     addRandomNumber();
-    // draw();
+
 };
+down = () => {
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 4; j++) {
+            if (board[i][j] !== 0) {
+                console.log(board);
+                if (board[i + 1][j] === board[i][j] || board[i + 1][j] === 0) {
+                    board[i + 1][j] = board[i][j] + board[i + 1][j];
+                    board[i][j] = 0;
+                }
+            }
+        }
+    }
+    draw();
+    addRandomNumber();
+
+};
+
+left = () => {
+    for (let i = 0; i < 4; i++) {
+        for (let j = 3; j >=0; j--) {
+            if (board[i][j] !== 0) {
+                console.log(board);
+                if (board[i][j - 1] === board[i][j] || board[i][j - 1] === 0) {
+                    board[i][j - 1] = board[i][j] + board[i][j - 1];
+                    board[i][j] = 0;
+                }
+            }
+        }
+    }
+    draw();
+    addRandomNumber();
+
+};
+
+right = () => {
+    for (let i = 0; i < 4; i++) {
+        for (let j = 0; j < 3; j++) {
+            if (board[i][j] !== 0) {
+                console.log(board);
+                if (board[i][j + 1] === board[i][j] || board[i][j + 1] === 0) {
+                    board[i][j + 1] = board[i][j] + board[i][j + 1];
+                    board[i][j] = 0;
+                }
+            }
+        }
+    }
+    draw();
+    addRandomNumber();
+
+};
+
 window.onload = start;
